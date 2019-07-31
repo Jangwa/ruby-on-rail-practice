@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
   root to: 'pages#home'
+
+  resources :tasks, except:  [:index]
+  resources :test_apis, path: '/api/tasks', only: [:index] do
+    collection do
+      get '/see-all' => 'test_apis#seeAll'
+      post '/create-a-new' => 'test_apis#createANewTask'
+    end
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
